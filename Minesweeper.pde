@@ -110,8 +110,8 @@ public class MSButton
         System.out.println("you lose");
         
         }//coutn bombs doesnt work
-        //else if (countBombs>0)
-           //label+ countBomb[r][c];
+        else if (countBombs(r, c)>0)
+           label = "" + countBombs(r, c);
         else 
         {//recursions is a problem
           if(isValid(r,c-1) && buttons[r][c-1].isClicked()==false)
@@ -156,11 +156,10 @@ public class MSButton
     public int countBombs(int row, int col)
     {//idk what to do about this :(
         int numBombs = 0;
-        if (isValid(row+1,col+1)==true && isValid(row-1,col-1)==true && isValid(row-1,col+1)==true && isValid(row+1,col-1)==true)
-            for(int i=-1; i<=1; i++)
+        for(int i=-1; i<=1; i++)
             {
                 for (int j=-1; j<=1; j++)
-                    if(bombs.contains(buttons[r][c]))
+                    if(bombs.contains(buttons[r + i][c + j]) && isValid(r + i, c + j))
                     numBombs++;
             }
         return numBombs;
