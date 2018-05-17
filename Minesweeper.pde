@@ -53,7 +53,8 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
+    if ()
+        return true;
     return false;
 }
 public void displayLosingMessage()
@@ -105,23 +106,23 @@ public class MSButton
              if (marked==false)
                 clicked=false;
             }
-        else if(bombs.contains(this))  
+        else if(bombs.contains(this) && !isMarked())  
           {  displayLosingMessage();
         System.out.println("you lose");
         
-        }//coutn bombs doesnt work
+        }
         else if (countBombs(r, c)>0)
            label = "" + countBombs(r, c);
         else 
-        {//recursions is a problem
-          if(isValid(r,c-1) && buttons[r][c-1].isClicked()==false)
-            buttons[r][c-1].mousePressed();
+        {
+           if(isValid(r,c-1) && buttons[r][c-1].isClicked()==false)
+             buttons[r][c-1].mousePressed();
           if(isValid(r,c+1) && buttons[r][c+1].isClicked()==false)
            buttons[r][c+1].mousePressed();
           if(isValid(r-1,c) && buttons[r-1][c].isClicked()==false)
-            buttons[r-1][c].mousePressed();
-           if(isValid(r+1,c) && buttons[r+1][c].isClicked()==false)
-           buttons[r+1][c].mousePressed();
+             buttons[r-1][c].mousePressed();
+            if(isValid(r+1,c) && buttons[r+1][c].isClicked()==false)
+             buttons[r+1][c].mousePressed();
        
         }
         
@@ -149,17 +150,17 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        if (r>=0 && r<20 && c>=0 && r<20)
+        if (r>=0 && r<20 && c>=0 && c<20)
             return true;
         return false;
     }
     public int countBombs(int row, int col)
-    {//idk what to do about this :(
+    {
         int numBombs = 0;
         for(int i=-1; i<=1; i++)
             {
                 for (int j=-1; j<=1; j++)
-                    if(bombs.contains(buttons[r + i][c + j]) && isValid(r + i, c + j))
+                    if(isValid(row + i, col + j) && bombs.contains(buttons[row + i][col + j]))
                     numBombs++;
             }
         return numBombs;
